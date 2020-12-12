@@ -3,6 +3,7 @@ package system.model
 import com.fasterxml.jackson.annotation.JsonValue
 
 enum Environment {
+
     QA("qa"), DEV("dev")
 
     private final String value

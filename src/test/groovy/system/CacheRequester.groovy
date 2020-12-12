@@ -2,8 +2,8 @@ package system
 
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.http.ContentType
-import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
+import system.model.*
 
 import static io.restassured.RestAssured.given
 
@@ -15,15 +15,33 @@ class CacheRequester {
             .setContentType(ContentType.JSON)
             .build()
 
-    static Response postCache(String cache) {
-        // TODO add cache obj. model.
+    static CachePostResponse postCache(Cache cache) {
         def response = given(REQUEST_SPECIFICATION)
                 .body(cache)
                 .post(CACHE_URL)
 
         assert response.statusCode == 200, response.prettyPrint()
 
-        response
-        // TODO add response obj. model: response.as(CacheResponse)
+        response as CachePostResponse
+    }
+
+    static Creative getCreative(String uuid, Creative.Type type) {
+        def response = given(REQUEST_SPECIFICATION)
+                .queryParam("uuid", uuid)
+                .get(CACHE_URL)
+
+        assert response.statusCode == 200, response.prettyPrint()
+
+        type == Creative.Type.XML ? new XmlCreative(response as String) : new JsonCreative(response as JsonCreative.Value)
+    }
+
+    static ErrorResponse getErrorResponse(String uuid) {
+        def response = given(REQUEST_SPECIFICATION)
+                .queryParam("uuid", uuid)
+                .get(CACHE_URL)
+
+        assert response.statusCode != 200, response.prettyPrint()
+
+        response as ErrorResponse
     }
 }
