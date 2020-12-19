@@ -1,10 +1,10 @@
-package system
+package com.githab.denakh.cache.functional.system
 
+import com.githab.denakh.cache.functional.system.model.*
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
-import system.model.*
 
 import static io.restassured.RestAssured.given
 
@@ -23,7 +23,7 @@ class CacheRequester {
 
         checkApiResponse(response)
 
-        response as CachePostResponse
+        response.as(CachePostResponse)
     }
 
     static Creative getCreative(String uuid, Creative.Type type) {
@@ -33,7 +33,7 @@ class CacheRequester {
 
         checkApiResponse(response)
 
-        type == Creative.Type.XML ? new XmlCreative(response as String) : new JsonCreative(response as JsonCreative.Value)
+        type == Creative.Type.XML ? new XmlCreative(response.as(String)) : new JsonCreative(response.as(JsonCreative.Value))
     }
 
     private static void checkApiResponse(Response response) {

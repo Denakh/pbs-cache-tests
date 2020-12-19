@@ -1,4 +1,4 @@
-package system.model
+package com.githab.denakh.cache.functional.system.model
 
 import com.fasterxml.jackson.annotation.JsonValue
 

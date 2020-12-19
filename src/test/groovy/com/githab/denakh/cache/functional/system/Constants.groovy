@@ -1,6 +1,7 @@
-package system
+package com.githab.denakh.cache.functional.system
 
-import system.model.Environment
+import com.githab.denakh.cache.functional.system.model.Environment
+
 
 class Constants {
 
