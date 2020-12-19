@@ -6,22 +6,22 @@ import spock.lang.Specification
 
 class SmokeSpec extends Specification {
 
-    def "Valid cache post request should return status code 200"() {
-        when: "Initiate valid cache post request"
+    def "Valid post cache request should return status code 200"() {
+        when: "Initiate valid post cache request"
         CacheRequester.postCache(Cache.defaultCache())
 
-        then: "Response status code after the request is 200 and then no ApiErrorException"
+        then: "Response status code after the request is 200 and so no ApiErrorException"
         notThrown(CacheRequester.ApiErrorException)
     }
 
-//    @allure.title('Test GET status code')
-//    def test_get_status_code(cache_url, get_json_file_payload_as_dict):
-//    file_name = "payload_with_3_creatives_and_no_uuid.json"
-//    post_response = requests.post(cache_url, json=get_json_file_payload_as_dict(file_name))
-//
-//    response_body = json.loads(post_response.text)
-//    for response in response_body["responses"]:
-//    uuid = response["uuid"]
-//    get_response = requests.get(cache_url, params={"uuid": uuid})
-//    assert 200 == get_response.status_code, f"Response text: {get_response.text}"
+    def "Valid get cache request should return status code 200"() {
+        given: "Cache is stored"
+        def savedCreativesInfo = CacheRequester.postCache(Cache.defaultCache())
+
+        when: "Initiate get requests for all cache creatives"
+        savedCreativesInfo.savedCreativeInfoList.each { CacheRequester.getCreative(it.uuid.uuid, it.type) }
+
+        then: "Response status code after the requests are 200 and so no ApiErrorException"
+        notThrown(CacheRequester.ApiErrorException)
+    }
 }

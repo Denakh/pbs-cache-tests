@@ -16,14 +16,14 @@ class CacheRequester {
             .setContentType(ContentType.JSON)
             .build()
 
-    static CachePostResponse postCache(Cache cache) {
+    static SavedCreativesInfo postCache(Cache cache) {
         def response = given(REQUEST_SPECIFICATION)
                 .body(cache)
                 .post(CACHE_URL)
 
         checkApiResponse(response)
 
-        response.as(CachePostResponse)
+        new SavedCreativesInfo(cache, response.as(CachePostResponse))
     }
 
     static Creative getCreative(String uuid, Creative.Type type) {
