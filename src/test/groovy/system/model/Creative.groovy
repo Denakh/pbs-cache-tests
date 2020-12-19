@@ -12,15 +12,11 @@ abstract class Creative {
 
         JSON("json"), XML("xml")
 
-        private final String value
+        @JsonValue
+        final String value
 
         private Type(String value) {
             this.value = value
-        }
-
-        @JsonValue
-        String getValue() {
-            value
         }
 
         @Override

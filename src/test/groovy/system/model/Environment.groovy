@@ -6,15 +6,11 @@ enum Environment {
 
     QA("qa"), DEV("dev")
 
-    private final String value
+    @JsonValue
+    final String value
 
     private Environment(String value) {
         this.value = value
-    }
-
-    @JsonValue
-    String getValue() {
-        value
     }
 
     @Override

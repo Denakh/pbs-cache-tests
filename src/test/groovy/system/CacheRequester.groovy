@@ -2,6 +2,7 @@ package system
 
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.http.ContentType
+import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import system.model.*
 
@@ -20,7 +21,7 @@ class CacheRequester {
                 .body(cache)
                 .post(CACHE_URL)
 
-        assert response.statusCode == 200, response.prettyPrint()
+        checkApiResponse(response)
 
         response as CachePostResponse
     }
@@ -30,18 +31,26 @@ class CacheRequester {
                 .queryParam("uuid", uuid)
                 .get(CACHE_URL)
 
-        assert response.statusCode == 200, response.prettyPrint()
+        checkApiResponse(response)
 
         type == Creative.Type.XML ? new XmlCreative(response as String) : new JsonCreative(response as JsonCreative.Value)
     }
 
-    static ErrorResponse getErrorResponse(String uuid) {
-        def response = given(REQUEST_SPECIFICATION)
-                .queryParam("uuid", uuid)
-                .get(CACHE_URL)
+    private static void checkApiResponse(Response response) {
+        if (response.statusCode != 200) {
+            response.prettyPrint()
+            throw new ApiErrorException(response.statusCode(), response.body.toString())
+        }
+    }
 
-        assert response.statusCode != 200, response.prettyPrint()
+    static class ApiErrorException extends Exception {
 
-        response as ErrorResponse
+        Integer statusCode
+        String responseBody
+
+        ApiErrorException(int statusCode, String responseBody) {
+            this.statusCode = statusCode
+            this.responseBody = responseBody
+        }
     }
 }
