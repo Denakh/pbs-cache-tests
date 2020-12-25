@@ -33,7 +33,7 @@ class CacheRequester {
 
         checkApiResponse(response)
 
-        type == Creative.Type.XML ? new XmlCreative(response.as(String)) : new JsonCreative(response.as(JsonCreative.Value))
+        type == Creative.Type.XML ? new XmlCreative(response.asString()) : new JsonCreative(response.as(JsonCreative.Value))
     }
 
     private static void checkApiResponse(Response response) {

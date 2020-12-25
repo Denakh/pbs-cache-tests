@@ -6,10 +6,10 @@ import groovy.transform.ToString
 class SavedCreativeInfo {
 
     UUID uuid
-    Creative.Type type
+    Creative savedCreative
 
-    SavedCreativeInfo(UUID uuid, Creative.Type type) {
+    SavedCreativeInfo(UUID uuid, Creative savedCreative) {
         this.uuid = uuid
-        this.type = type
+        this.savedCreative = savedCreative
     }
 }
