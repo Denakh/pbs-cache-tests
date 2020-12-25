@@ -19,7 +19,9 @@ class SmokeSpec extends Specification {
         def savedCreativesInfo = CacheRequester.postCache(Cache.defaultCache())
 
         when: "Initiate get requests for all cache creatives"
-        savedCreativesInfo.savedCreativeInfoList.each { CacheRequester.getCreative(it.uuid.uuid, it.type) }
+        savedCreativesInfo.savedCreativeInfoList.each {
+            CacheRequester.getCreative(it.uuid.uuid, it.savedCreative.type)
+        }
 
         then: "Response status code after the requests are 200 and so no ApiErrorException"
         notThrown(CacheRequester.ApiErrorException)

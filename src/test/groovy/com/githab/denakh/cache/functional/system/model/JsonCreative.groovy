@@ -1,5 +1,6 @@
 package com.githab.denakh.cache.functional.system.model
 
+import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @ToString(includeNames = true)
@@ -20,6 +21,7 @@ class JsonCreative extends Creative {
         new JsonCreative(Value.defaultExtendedValue())
     }
 
+    @EqualsAndHashCode
     @ToString(includeNames = true)
     static class Value {
 

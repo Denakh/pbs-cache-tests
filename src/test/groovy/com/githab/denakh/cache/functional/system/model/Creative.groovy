@@ -7,6 +7,7 @@ import groovy.transform.ToString
 abstract class Creative {
 
     Type type
+    Long expiry
 
     enum Type {
 
