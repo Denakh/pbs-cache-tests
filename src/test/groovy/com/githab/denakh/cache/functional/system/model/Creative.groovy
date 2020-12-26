@@ -8,6 +8,7 @@ abstract class Creative {
 
     Type type
     Long expiry
+    String key
 
     enum Type {
 

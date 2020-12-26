@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit
 
 class CachedDataKeepingSpec extends Specification {
 
-    private final Long ttl = 70
-    private final Long timeToGetCache = 60
+    private final Long ttl = 60
+    private final Long timeToGetCache = 50
 
-    def "Cache data should be kept for TTL (70 secs) period"() {
-        given: "TTL is added to default cache payload"
+    def "Cache data should be kept for TTL period"() {
+        given: "TTL (60 secs) is added to default cache payload"
         def cache = Cache.defaultCache().tap {
             it.puts.each {
                 it.expiry = ttl
@@ -31,7 +31,7 @@ class CachedDataKeepingSpec extends Specification {
             it.savedCreative.type == Creative.Type.JSON
         }
 
-        when: "Wait for 60 secs (less then TTL)"
+        when: "Wait for 50 secs (less then TTL)"
         TimeUnit.SECONDS.sleep(timeToGetCache)
 
         then: "We can get all stored cache creative values"
