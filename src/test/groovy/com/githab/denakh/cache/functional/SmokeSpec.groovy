@@ -23,7 +23,7 @@ class SmokeSpec extends Specification {
             CacheRequester.getCreative(it.uuid.uuid, it.savedCreative.type)
         }
 
-        then: "Response status code after the requests are 200 and so no ApiErrorException"
+        then: "Response status code after the requests is 200 and so no ApiErrorException"
         notThrown(CacheRequester.ApiErrorException)
     }
 }

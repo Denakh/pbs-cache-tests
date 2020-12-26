@@ -39,7 +39,7 @@ class CacheRequester {
     private static void checkApiResponse(Response response) {
         if (response.statusCode != 200) {
             response.prettyPrint()
-            throw new ApiErrorException(response.statusCode(), response.body.toString())
+            throw new ApiErrorException(response.statusCode(), response.asString())
         }
     }
 
