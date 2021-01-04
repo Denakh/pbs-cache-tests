@@ -10,7 +10,8 @@ import static io.restassured.RestAssured.given
 
 class CacheRequester {
 
-    private static final String CACHE_URL = "https://prebid-cache.${Constants.ENVIRONMENT.value}.rubiconproject.com/cache"
+    // Actual cache url should be defined
+    private static final String CACHE_URL = "https://some-cache.${Constants.ENVIRONMENT.value}.someproject.com/cache"
     private static final RequestSpecification REQUEST_SPECIFICATION = new RequestSpecBuilder()
             .setBaseUri(CACHE_URL)
             .setContentType(ContentType.JSON)
